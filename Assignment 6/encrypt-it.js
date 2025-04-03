@@ -1,3 +1,4 @@
+console.log("Window loaded!");
 /*
  * Starter file 
  */
@@ -11,16 +12,44 @@
    */
   window.addEventListener("load", init);
 
-  /**
-   * TODO: Write a function comment using JSDoc.
-   */
+  //inits buttons 
   function init() {
-    // Note: In this function, we usually want to set up our event handlers
-    // for UI elements on the page.
+    const encryptButton = document.getElementById("encrypt-it");
+    const resetButton = document.getElementById("reset");
+    encryptButton.addEventListener("click", encryptText);
+    resetButton.addEventListener("click", handleReset);
   }
 
   // Add any other functions in this area (you should not implement your
   // entire program in the init function, for similar reasons that
   // you shouldn't write an entire Java program in the main method).
+  function encryptText() {
+    const textArea = document.getElementById("input-text");
+    const output = document.getElementById("result");
+    const text = textArea.value.toLowerCase();
+    let encryptedText = "";
+
+    for (let i = 0; i < text.length; i++) {
+        let char = text[i];
+        if (char >= 'a' && char < 'z') {
+          char = String.fromCharCode(char.charCodeAt(0) + 1);
+        }
+        if (char == 'z'){
+          char = 'a'
+        }
+        encryptedText += char;
+    }
+
+    output.textContent = encryptedText;
+    console.log("Encrypted text: " + encryptedText);
+}
+
+function handleReset() {
+    const textArea = document.getElementById("input-text");
+    textArea.value = "";
+    const output = document.getElementById("result");
+    output.textContent = "";
+    console.log("Text area cleared!");
+}
 
 })();
